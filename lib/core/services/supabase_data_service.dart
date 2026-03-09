@@ -28,8 +28,7 @@ class SupabaseDataService {
   /// Expects a Supabase view or RPC named 'dashboard_stats' that
   /// returns a single row with aggregated stats.
   static Future<DashboardStats> getStats() async {
-    final response =
-        await _client.from('dashboard_stats').select().single();
+    final response = await _client.from('dashboard_stats').select().single();
     return DashboardStats.fromJson(response);
   }
 
@@ -37,12 +36,16 @@ class SupabaseDataService {
   /// Calls a Postgres function: monthly_revenue() → [{month, amount}]
   static Future<List<double>> getMonthlyRevenue() async {
     final response = await _client.rpc('monthly_revenue');
-    return (response as List).map((e) => (e['amount'] as num).toDouble()).toList();
+    return (response as List)
+        .map((e) => (e['amount'] as num).toDouble())
+        .toList();
   }
 
   static Future<List<double>> getMonthlyRides() async {
     final response = await _client.rpc('monthly_rides');
-    return (response as List).map((e) => (e['count'] as num).toDouble()).toList();
+    return (response as List)
+        .map((e) => (e['count'] as num).toDouble())
+        .toList();
   }
 
   static Future<Map<String, double>> getRideStatusDistribution() async {
@@ -56,6 +59,8 @@ class SupabaseDataService {
 
   static Future<List<double>> getWeeklyUsers() async {
     final response = await _client.rpc('weekly_users');
-    return (response as List).map((e) => (e['count'] as num).toDouble()).toList();
+    return (response as List)
+        .map((e) => (e['count'] as num).toDouble())
+        .toList();
   }
 }
