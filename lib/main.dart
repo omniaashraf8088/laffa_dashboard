@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'core/config/supabase_config.dart';
 import 'core/theme/app_theme.dart';
 import 'core/constants/app_strings.dart';
 import 'features/dashboard/widgets/sidebar_nav.dart';
@@ -11,8 +13,15 @@ import 'features/dashboard/screens/rides_screen.dart';
 import 'features/dashboard/screens/payments_screen.dart';
 import 'features/dashboard/screens/analytics_screen.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   Animate.restartOnHotReload = true;
+
+  await Supabase.initialize(
+    url: SupabaseConfig.url,
+    anonKey: SupabaseConfig.anonKey,
+  );
+
   runApp(const LaffaDashboardApp());
 }
 
